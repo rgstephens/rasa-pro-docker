@@ -16,7 +16,11 @@ gcloud auth configure-docker europe-west3-docker.pkg.dev
 docker buildx build --platform ${DOCKER_PLATFORMS} --tag ${REGISTRY}/${IMAGE}:${VERS} --build-arg VERS=${VERS} . --progress=plain
 ```
 
-Build from GitHub Actions (TBD)
+### Build from GitHub Actions (TBD)
+
+- Set repo secret `GCR_JSON_KEY` with key-file.json value
+
+
 
 ### Python Based Image
 
