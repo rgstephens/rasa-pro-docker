@@ -1,0 +1,45 @@
+# syntax=docker/dockerfile:1.2-labs
+
+#FROM python:3.8.12-slim-buster
+FROM python:3.9-slim-bullseye
+
+WORKDIR /app
+
+USER root
+
+COPY pyproject.toml poetry.lock requirements.txt /app/
+
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+RUN apt-get update
+RUN apt-get install -y apt-transport-https ca-certificates gnupg curl
+
+RUN poetry self add keyrings.google-artifactregistry-auth
+RUN keyring --list-backends
+
+RUN curl https://sdk.cloud.google.com | bash
+RUN find / -name gcloud
+ENV PATH="/root/google-cloud-sdk/bin:$PATH"
+RUN echo $PATH
+
+RUN poetry source add --secondary rasa-plus https://europe-west3-python.pkg.dev/rasa-releases/rasa-plus-py/simple
+RUN poetry config virtualenvs.create false
+RUN poetry env info
+RUN poetry cache clear --no-interaction --all pypi
+
+RUN --mount=type=secret,id=key-file.json \
+   find / -name key-file.json && \
+   gcloud auth activate-service-account --key-file=/run/secrets/key-file.json && \
+   export GOOGLE_APPLICATION_CREDENTIALS=/run/secrets/key-file.json && \
+   poetry update rasa-plus && \
+   poetry install --no-root -vvv
+
+COPY . .
+
+EXPOSE 5005
+
+CMD ["sh", "entrypoint.sh"]
+
+# docker buildx build --secret id=key-file.json --platform linux/amd64 --tag stephens/rasa-pro:3.5.3 . --progress=plain
+# DOCKER_BUILDKIT=1 DOCKER_DEFAULT_PLATFORM=linux/amd64 docker-compose build init_assistant --progress=plain
