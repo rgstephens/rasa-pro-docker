@@ -1,6 +1,8 @@
 ## Building Custom Rasa Pro Image
 
-### Docker Based Image
+This is an example repo to build a custom Rasa Pro docker image either locally or with a github action. A Rasa Pro license key is required.
+
+## Local Build
 
 Build docker image from command line
 
@@ -18,19 +20,13 @@ docker buildx build --platform ${DOCKER_PLATFORMS} --tag ${REGISTRY}/${IMAGE}:${
 
 ### Build from GitHub Actions (TBD)
 
-Can github actions build an image from a base image in a private repo:
-
-- [Maybe](https://github.com/orgs/community/discussions/26399#discussioncomment-3251764)
-- [No, Feb 2020](https://github.com/orgs/community/discussions/26534#discussioncomment-3252246)
-
 - Set repo secret `GCR_JSON_KEY` with key-file.json value
+- Set the env values in the `build_image.yml` based on your requirements
 
 ```yml
-      - name: Authenticate with gcloud for release registry 🎫
-        id: 'auth-release'
-        uses: 'google-github-actions/auth@ef5d53e30bbcd8d0836f4288f5e50ff3e086997d'
-        with:
-          service_account: '${{ secrets.GCR_JSON_KEY }}'
+  VERSION: 3.5.4
+  DOCKER_PLATFORMS: linux/amd64,linux/arm64
+  PUSH_REGISTRY: ghcr.io/${{github.repository}}
 ```
 
 ### Python Based Image

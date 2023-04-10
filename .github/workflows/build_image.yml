@@ -9,8 +9,8 @@ on:
 env:
   VERSION: 3.5.4
   DOCKER_PLATFORMS: linux/amd64,linux/arm64
-  GCR_REGISTRY: "europe-west3-docker.pkg.dev/rasa-releases/rasa-plus"
   PUSH_REGISTRY: ghcr.io/${{github.repository}}
+  GCR_REGISTRY: "europe-west3-docker.pkg.dev/rasa-releases/rasa-plus"
 
 jobs:
   build:
@@ -69,4 +69,3 @@ jobs:
       - name: Push image to release registry
         run: |
           docker push ${{env.PUSH_REGISTRY}}:${{ env.VERSION }}
-          docker push ${{env.PUSH_REGISTRY}}:latest
