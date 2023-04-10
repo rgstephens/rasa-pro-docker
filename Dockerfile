@@ -1,4 +1,4 @@
-ARG VERS=latest
+ARG VERSION=latest
 FROM europe-west3-docker.pkg.dev/rasa-releases/rasa-plus/rasa-plus:latest
 
 USER root
