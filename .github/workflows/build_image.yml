@@ -68,4 +68,5 @@ jobs:
 
       - name: Push image to release registry
         run: |
-          docker push --all-tags ${{env.PUSH_REGISTRY}}
+          docker push ${{env.PUSH_REGISTRY}}:${{ env.VERSION }}
+          docker push ${{env.PUSH_REGISTRY}}:latest
