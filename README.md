@@ -18,6 +18,11 @@ docker buildx build --platform ${DOCKER_PLATFORMS} --tag ${REGISTRY}/${IMAGE}:${
 
 ### Build from GitHub Actions (TBD)
 
+Can github actions build an image from a base image in a private repo:
+
+- [Maybe](https://github.com/orgs/community/discussions/26399#discussioncomment-3251764)
+- [No, Feb 2020](https://github.com/orgs/community/discussions/26534#discussioncomment-3252246)
+
 - Set repo secret `GCR_JSON_KEY` with key-file.json value
 
 
