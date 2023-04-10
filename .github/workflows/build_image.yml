@@ -43,7 +43,7 @@ jobs:
         with:
           string: ${{env.GCR_REGISTRY}}
 
-          - name: Build and tag image ready for pushing to dev and release registries
+      - name: Build and tag image ready for pushing to dev and release registries
         run: |
           docker build . -t ${{ steps.registry.output.lowercase }}/rasa-plus:${{ env.VERSION }} -t ${{env.PUSH_REGISTRY}}:${{ env.VERSION }} -t ${{env.PUSH_REGISTRY}}:latest --build-arg VERSION=${{ env.VERSION }} -f Dockerfile
 
