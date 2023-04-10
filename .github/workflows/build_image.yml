@@ -65,4 +65,4 @@ jobs:
 
       - name: Build and tag image ready for pushing to dev and release registries
         run: |
-          docker build . -t ${{env.GCR_REGISTRY}}/rasa-plus:${{ env.VERSION }} -t ${{env.PUSH_REGISTRY}}/rasa-plus:${{ env.VERSION }} -t ${{env.PUSH_REGISTRY}}/rasa-plus:latest --build-arg VERSION=${{ env.VERSION }} -f Dockerfile
+          docker build . -t ${{env.GCR_REGISTRY}}/rasa-plus:${{ env.VERSION }} -t ${{env.PUSH_REGISTRY}}:${{ env.VERSION }} -t ${{env.PUSH_REGISTRY}}:latest --build-arg VERSION=${{ env.VERSION }} -f Dockerfile
