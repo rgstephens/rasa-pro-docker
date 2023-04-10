@@ -68,9 +68,12 @@ jobs:
 
       - name: Log in to registry
         # This is where you will update the PAT to GITHUB_TOKEN
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-
-      - name: Push image to release registry
         run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           docker push ${{env.PUSH_REGISTRY}}:${{ env.VERSION }}
           docker push ${{env.PUSH_REGISTRY}}:latest
+
+      # - name: Push image to release registry
+      #   run: |
+      #     docker push ${{env.PUSH_REGISTRY}}:${{ env.VERSION }}
+      #     docker push ${{env.PUSH_REGISTRY}}:latest
