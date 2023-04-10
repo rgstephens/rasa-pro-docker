@@ -57,7 +57,6 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCR_JSON_KEY }}'
           # service_account: '${{ secrets.GCR_JSON_KEY }}'
-          # credentials_json: '${{ secrets.RASA_PLUS_RELEASE_ACCOUNT_KEY }}'
 
       # Authenticate with artifact registry where the images are stored.
       - name: Authenticate docker for release registry 🎫
@@ -66,3 +65,7 @@ jobs:
       - name: Build and tag image ready for pushing to dev and release registries
         run: |
           docker build . -t ${{env.GCR_REGISTRY}}/rasa-plus:${{ env.VERSION }} -t ${{env.PUSH_REGISTRY}}:${{ env.VERSION }} -t ${{env.PUSH_REGISTRY}}:latest --build-arg VERSION=${{ env.VERSION }} -f Dockerfile
+
+      - name: Push image to release registry
+        run: |
+          docker push --all-tags ${{env.PUSH_REGISTRY}}
