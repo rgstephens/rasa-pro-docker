@@ -20,23 +20,6 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
 
-      # https://github.com/crazy-max/ghaction-docker-meta
-      - name: Docker meta
-        id: docker_meta
-        uses: crazy-max/ghaction-docker-meta@v1
-        with:
-          # list of Docker images to use as base name for tags
-          #  ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}
-          images: |
-            ghcr.io/${{ github.repository }}
-          tag-semver: |
-            {{version}}
-
-      - name: Show envs if image-tag
-        if: ${{ github.event.inputs.image-tag }}
-        run: |
-          echo "github.event.inputs.image-tag: ${{ github.event.inputs.image-tag }}"
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
