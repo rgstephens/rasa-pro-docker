@@ -25,7 +25,13 @@ Can github actions build an image from a base image in a private repo:
 
 - Set repo secret `GCR_JSON_KEY` with key-file.json value
 
-
+```yml
+      - name: Authenticate with gcloud for release registry 🎫
+        id: 'auth-release'
+        uses: 'google-github-actions/auth@ef5d53e30bbcd8d0836f4288f5e50ff3e086997d'
+        with:
+          service_account: '${{ secrets.GCR_JSON_KEY }}'
+```
 
 ### Python Based Image
 
