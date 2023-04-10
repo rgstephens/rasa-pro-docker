@@ -1,5 +1,5 @@
 ARG VERSION=latest
-FROM europe-west3-docker.pkg.dev/rasa-releases/rasa-plus/rasa-plus:latest
+FROM europe-west3-docker.pkg.dev/rasa-releases/rasa-plus/rasa-plus:$VERSION
 
 USER root
 
@@ -19,10 +19,6 @@ RUN python -m spacy download en_core_web_md
     # python -m spacy link it_core_news_md it && \
     # python -m spacy link de_core_news_sm de
 
-# RUN poetry run python -m pip install -U git+https://github.com/tmbo/MITIE.git#egg=mitie
-# RUN poetry run python -m pip install spacy
-
-# The entry point
 EXPOSE 5005
 ENTRYPOINT ["rasa"]
 CMD ["--help"]
