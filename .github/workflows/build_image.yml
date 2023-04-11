@@ -41,7 +41,7 @@ jobs:
       - id: registry
         uses: ASzc/change-string-case-action@v5
         with:
-          string: ${{env.GCR_REGISTRY}}
+          string: ${{ env.PUSH_REGISTRY }}
 
       - name: Build and tag image ready for pushing to dev and release registries
         run: |
