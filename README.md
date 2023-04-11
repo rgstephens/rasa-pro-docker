@@ -2,6 +2,8 @@
 
 This is an example repo to build a custom Rasa Pro docker image either locally or with a github action. A Rasa Pro license key is required.
 
+The Dockerfile can be customized as needed. The current example adds `spaCy` with the `en_core_web_md` trained pipeline and `transformers` packages.
+
 ## Local Build
 
 Build docker image from command line
